@@ -3443,6 +3443,9 @@ function wp_get_mime_types() {
 			'key'                          => 'application/vnd.apple.keynote',
 			'numbers'                      => 'application/vnd.apple.numbers',
 			'pages'                        => 'application/vnd.apple.pages',
+			// yaml/json formats.
+			'yaml|yml'                     => 'application/x-yaml',
+			'json'                         => 'application/json',
 		)
 	);
 }

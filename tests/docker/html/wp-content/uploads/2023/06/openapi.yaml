@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: Http Bin
+  description: ''
+  version: '1.0'
+servers:
+  - url: https://carloseuap01.azure-api.net
+paths:
+  /get:
+    get:
+      tags:
+        - HTTP Methods
+      summary: Get Resource
+      description: The request's query parameters.
+      operationId: resource
+      responses:
+        '200':
+          description: 
+  /post:
+    post:
+      tags:
+        - HTTP Methods
+      summary: Post Resource
+      description: The request's POST parameters.
+      operationId: post-resource
+      responses:
+        '200':
+          description: 
+  /put:
+    put:
+      tags:
+        - HTTP Methods
+      summary: Put Resource
+      description: The request's PUT parameters.
+      operationId: put-resource
+      responses:
+        '200':
+          description: 
+  /patch:
+    patch:
+      tags:
+        - HTTP Methods
+      summary: Patch Resource
+      description: The request's PATCH parameters.
+      operationId: patch-resource
+      responses:
+        '200':
+          description: 
+  /delete:
+    delete:
+      tags:
+        - HTTP Methods
+      summary: Delete Resource
+      description: The request's DELETE parameters.
+      operationId: delete-resource
+      responses:
+        '200':
+          description: 
+  /bearer:
+    get:
+      tags:
+        - Auth
+      summary: Bearer
+      description: Prompts the user for authorization using bearer authentication.
+      operationId: bearer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bearer Status Code 200'
+              example:
+                authenticated: true
+                token: string
+  '/basic-auth/{user}/{passwd}':
+    get:
+      tags:
+        - Auth
+      summary: Basic Auth
+      description: Prompts the user for authorization using HTTP Basic Auth.
+      operationId: basic-auth
+      parameters:
+        - name: user
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: passwd
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: 
+  /image:
+    get:
+      tags:
+        - Images
+      summary: Image
+      description: Returns a simple image of the type suggest by the Accept header.
+      operationId: image
+      responses:
+        '200':
+          description: 
+  /image/jpeg:
+    get:
+      tags:
+        - Images
+      summary: Image JPEG
+      description: Returns a simple JPEG image.
+      operationId: image-jpeg
+      responses:
+        '200':
+          description: 
+components:
+  schemas:
+    Bearer Status Code 200:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+        token:
+          type: string
+      example:
+        authenticated: false
+        token: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

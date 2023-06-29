@@ -6,16 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Copy Plugin on WP plugins folder
       run: |
         mkdir ./tests/docker/html/wp-content/plugins/wp-azure-api-management-main
-        cp -R !(tests) ./tests/docker/html/wp-content/plugins/wp-azure-api-management-main/
+        rsync -av ./ ./tests/docker/html/wp-content/plugins/wp-azure-api-management-main --exclude tests
     - uses: isbang/compose-action@v1.4.1
       with:
         compose-file: "./tests/docker/docker-compose.yml"
+    - name: Show DB logs
+      run: docker logs mariadb
+    - name: Show WP logs
+      run: docker logs wordpress
     - name: Check WP is up and running
-      run: curl -Is http://localhost:80 | head -1
+      run: curl -Is http://localhost:5000
