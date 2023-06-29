@@ -1,0 +1,21 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Copy Plugin on WP plugins folder
+      run: |
+        mkdir ./tests/docker/html/wp-content/plugins/wp-azure-api-management-main
+        cp -R !(tests) ./tests/docker/html/wp-content/plugins/wp-azure-api-management-main/
+    - uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: "./tests/docker/docker-compose.yml"
+    - name: Check WP is up and running
+      run: curl -Is http://localhost:80 | head -1
